@@ -180,6 +180,22 @@
   color: var(--color-accent-dark);
 }
 
+/* ---- Numbered step card (light-background three-step approach) ---- */
+.step-card__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: var(--space-xs);
+  border-radius: var(--radius-full);
+  background-color: rgba(var(--color-accent-rgb), 0.15);
+  color: var(--color-accent-dark);
+  font-family: var(--font-heading);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-lg);
+}
+
 /* ---- Badge ---- */
 .badge {
   display: inline-flex;
@@ -250,10 +266,214 @@
       rgba(var(--color-primary-rgb), 0.45) 50%,
       rgba(var(--color-primary-rgb), 0) 70%
     ),
-    url("/home-page-hero/hero-image.png");
+    var(--hero-bg-image, url("/home-page-hero/hero-image.png"));
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+/* Inner-page hero: shorter than the homepage hero, image swapped per
+   practice area via the --hero-bg-image custom property below. */
+.hero--inner {
+  min-height: clamp(380px, 48vh, 480px);
+}
+
+.hero[data-area="intellectual-property"] {
+  --hero-bg-image: url("/practice area/Illuminated Legal Desk in Blue and Gold.png");
+}
+
+.hero[data-area="technology-saas-licensing"] {
+  --hero-bg-image: url("/practice area/Modern Developer Workspace Banner.png");
+}
+
+.hero[data-area="commercial-contracts"] {
+  --hero-bg-image: url("/practice area/Legal Office at Sunset.png");
+}
+
+.hero[data-area="privacy-data-compliance"] {
+  --hero-bg-image: url("/practice area/Cybersecurity Laptop in Modern Office.png");
+}
+
+.hero[data-area="cross-border-international"] {
+  --hero-bg-image: url("/practice area/Global Executive Office at Sunset.png");
+}
+
+.hero[data-area="immigration-law"] {
+  --hero-bg-image: url("/practice area/Passport at Sunset Airport.png");
+}
+
+.hero[data-area="team"] {
+  --hero-bg-image: url("/team/Sunset Skyline Law Office Conference Room.png");
+}
+
+/* ---- Team profile cards & detailed bio photo ---- */
+.profile-card__photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--space-sm);
+}
+
+.profile-card__photo-badge {
+  position: absolute;
+  left: var(--space-xs);
+  bottom: var(--space-xs);
+  background-color: rgba(23, 44, 73, 0.85);
+  color: var(--color-text-inverse);
+}
+
+.profile-card-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* ---- Inline team member detail panel ---- */
+.team-detail {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.team-detail__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.team-detail__back,
+.team-detail__pager button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.team-detail__back:hover,
+.team-detail__pager button:hover {
+  color: var(--color-accent-dark);
+}
+
+.team-detail__pager {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.team-detail__header {
+  display: grid;
+  grid-template-columns: 18rem 1fr;
+  gap: var(--space-xl);
+}
+
+.team-detail__photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.team-detail__intro {
+  min-width: 0;
+}
+
+.team-detail__intro-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.team-detail__name {
+  color: var(--color-primary);
+  margin-bottom: var(--space-3xs);
+}
+
+.team-detail__role {
+  display: block;
+  font-weight: var(--fw-semibold);
+  color: var(--color-accent-dark);
+}
+
+.team-detail__bio {
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+}
+
+.team-fact .card__icon-row {
+  margin-bottom: var(--space-xs);
+}
+
+.team-fact__notice {
+  margin-bottom: var(--space-xs);
+}
+
+.team-fact__more {
+  margin: var(--space-3xs) 0 0;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--color-accent-dark);
+}
+
+.team-fact__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  list-style: disc;
+  padding-left: 1.1em;
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+@media (max-width: 768px) {
+  .team-detail__header {
+    grid-template-columns: 1fr;
+  }
+
+  .team-detail__photo {
+    max-width: 16rem;
+  }
+}
+
+.preview-banner {
+  background-color: var(--color-error);
+  color: var(--color-text-inverse);
+  padding: var(--space-sm);
+  font-weight: var(--fw-semibold);
+}
+
+.bio-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
 }
 
 .hero__content {
@@ -346,7 +566,7 @@
         rgba(var(--color-primary-rgb), 0.95) 78%,
         rgba(var(--color-primary-rgb), 0.97) 100%
       ),
-      url("/home-page-hero/hero-image.png");
+      var(--hero-bg-image, url("/home-page-hero/hero-image.png"));
   }
 
   .hero__content {
@@ -510,6 +730,18 @@
 
 .breadcrumb a:hover {
   color: var(--color-accent-dark);
+}
+
+.breadcrumb--on-dark {
+  color: rgba(248, 247, 244, 0.75);
+}
+
+.breadcrumb--on-dark a {
+  color: var(--color-accent-light);
+}
+
+.breadcrumb--on-dark a:hover {
+  color: var(--color-text-inverse);
 }
 
 /* ---- Utilities ---- */

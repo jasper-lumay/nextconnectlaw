@@ -49,3 +49,19 @@ All original files are preserved in [`docs/source-documents/`](source-documents/
 - Specific bar license numbers (e.g., a specific Alabama bar number) and moot-court/individual-course credentials from the draft were left out of the scaffold pending verification — not because they're assumed false, but because a wrong or stale license number is a compliance risk; general bar-admission claims are flagged instead (see conflict #1).
 
 **Anyone reviewing this build before go-live should resolve items 1, 2, 3, 4, 5, 6, and 8 with the firm directly.**
+
+## Update — 2026-10-24: Karaman Mamand re-added to `content/team.ts`
+
+Conflict #3 above previously excluded "Karaman Mamand" entirely due to a single, inconsistent legacy draft mention. The client has since explicitly directed that the team page include **Karaman Mamand — Immigration Case Manager**, confirming the title. Per that instruction:
+
+- The title "Immigration Case Manager" is now treated as client-confirmed and used as-is.
+- No biography, education, bar admissions, experience, or languages exist in any reviewed source document for this person — none were invented. The profile's biography text is marked `[PENDING CONFIRMATION]` in code, the portrait is a clearly labeled temporary sample image, and the detail page suppresses attorney-only sections (bar admissions, education, publications) for this profile via `isAttorney: false`.
+- **This profile must not go live until the firm supplies and approves a real biography and photograph**, and confirms Karaman Mamand is still a current team member.
+
+## Update — 2026-10-24: Fictional "Demo Profile" cards published to public /team
+
+Five entirely fictional attorney cards ("Sample Attorney 02"–"06") were added to the live, public `/team` page, sourced from `content/demo-team-profiles.ts`. **This content is not real** — no such people exist at the firm. It was added at the client's explicit, repeated direction after this risk was flagged twice:
+
+- Each card is visibly labeled "Demo Profile" in the title and "Demo profile" on the portrait image, and all credential fields read "Pending profile details."
+- No individual detail page was created for these slugs (no `/team/demo-02` etc.), and they are intentionally excluded from `content/team.ts` and `app/sitemap.ts`, so search engines only see them as placeholder cards on `/team`, not as indexed individual attorney profile pages.
+- **This still means a real law firm's public website is currently displaying fabricated staff.** This is an attorney-advertising/compliance risk, not just a content-polish issue. Recommend removing this content or replacing it with confirmed real hires before any real marketing push or compliance review of this site.

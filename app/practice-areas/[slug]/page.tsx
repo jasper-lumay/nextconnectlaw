@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Hero } from "@/components/sections/hero";
+import { PracticeAreaCard } from "@/components/sections/practice-area-card";
 import { CtaBand } from "@/components/sections/cta-band";
-import { ArrowRightIcon } from "@/components/ui/icons";
 import { practiceAreas, getPracticeAreaBySlug } from "@/content/practice-areas";
-import { team } from "@/content/team";
+import { firm } from "@/content/firm";
 
 export function generateStaticParams() {
   return practiceAreas.map((area) => ({ slug: area.slug }));
@@ -38,57 +40,103 @@ export default async function PracticeAreaDetailPage({
     notFound();
   }
 
-  const attorneys = team.filter((attorney) => attorney.practiceAreaSlugs.includes(area.slug));
+  const relatedAreas = practiceAreas.filter((other) => other.slug !== area.slug).slice(0, 3);
+  const article = /^[aeiou]/i.test(area.title) ? "an" : "a";
 
   return (
     <>
-      <section className="section section--primary">
+      <Hero
+        className="hero--inner"
+        area={area.slug}
+        eyebrow="Practice Area"
+        titlePrefix={area.title}
+        lede={area.summary}
+        actions={
+          <>
+            <Button href="/contact" variant="primary">
+              {firm.consultationCta}
+            </Button>
+            <Button href={firm.phoneHref} variant="on-dark">
+              Call {firm.phone}
+            </Button>
+          </>
+        }
+      />
+
+      <section className="section section--surface">
         <Container>
-          <nav className="breadcrumb" aria-label="Breadcrumb">
-            <Link href="/practice-areas">Practice Areas</Link>
-            <span aria-hidden="true">/</span>
-            <span>{area.title}</span>
-          </nav>
-          <SectionHeading eyebrow="Practice Area" title={area.title} lede={area.summary} />
+          <SectionHeading
+            eyebrow="When clients call"
+            title="Common situations we help with"
+            lede={`Three examples of what brings clients to us for ${area.title.toLowerCase()} matters.`}
+          />
+          <div className="grid grid--3">
+            {area.clientSituations.map((situation) => (
+              <div key={situation} className="card">
+                <p className="card__body">{situation}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="section">
+        <Container>
+          <SectionHeading
+            eyebrow="How we help"
+            title="What we handle"
+            lede={`Document-supported counsel across ${area.title.toLowerCase()}.`}
+          />
+          <div className="grid grid--3">
+            {area.serviceDetails.map((service) => (
+              <div key={service.title} className="card">
+                <h3 className="card__title">{service.title}</h3>
+                <p className="card__body">{service.description}</p>
+              </div>
+            ))}
+          </div>
         </Container>
       </section>
 
       <section className="section section--surface">
         <Container>
-          <div className="grid grid--2">
-            <div>
-              <h2>What we handle</h2>
-              <ul className="stack stack--gap-md u-mt-md">
-                {area.services.map((service) => (
-                  <li key={service} className="card">
-                    {service}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              {attorneys.length > 0 ? (
-                <div className="card">
-                  <span className="card__eyebrow">Who handles this</span>
-                  {attorneys.map((attorney) => (
-                    <div key={attorney.slug}>
-                      <h3 className="card__title">{attorney.name}</h3>
-                      <p className="card__body">{attorney.shortBio}</p>
-                      <Link className="card__link" href={`/team/${attorney.slug}`}>
-                        View profile <ArrowRightIcon />
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              ) : null}
-            </div>
+          <SectionHeading
+            eyebrow="Our Approach"
+            title="How an engagement works"
+            lede="A consistent, three-step process applied to every matter."
+          />
+          <div className="grid grid--3">
+            {area.approachSteps.map((step, index) => (
+              <div key={step.title} className="card">
+                <span className="step-card__number" aria-hidden="true">
+                  {index + 1}
+                </span>
+                <h3 className="card__title">{step.title}</h3>
+                <p className="card__body">{step.description}</p>
+              </div>
+            ))}
           </div>
         </Container>
       </section>
 
+      {relatedAreas.length > 0 ? (
+        <section className="section">
+          <Container>
+            <SectionHeading
+              eyebrow="Related Services"
+              title="Other practice areas clients often need"
+            />
+            <div className="grid grid--3">
+              {relatedAreas.map((related) => (
+                <PracticeAreaCard key={related.slug} area={related} />
+              ))}
+            </div>
+          </Container>
+        </section>
+      ) : null}
+
       <CtaBand
-        title={`Discuss a ${area.title.toLowerCase()} matter`}
+        title={`Discuss ${article} ${area.title.toLowerCase()} matter`}
         lede="Tell us what you're working on and we'll respond with next steps and a clear scope."
       />
     </>

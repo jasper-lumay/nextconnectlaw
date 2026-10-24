@@ -6,9 +6,13 @@ import type { Attorney } from "@/lib/types";
  * false` — this is a compliance-sensitive claim and must be confirmed
  * against the attorney's current, active bar status before publishing.
  *
- * A second name, "Karaman Mamand" (described once, inconsistently, as an
- * immigration "case manager"), appeared in a separate legacy draft with no
- * further detail. Not included here — see CONTENT-AUDIT.md conflict #3.
+ * Karaman Mamand (Immigration Case Manager) was previously excluded per
+ * CONTENT-AUDIT.md conflict #3 (unclear role, single inconsistent legacy
+ * draft). Re-included here per explicit client direction confirming the
+ * title; biography and any further credentials remain unconfirmed and are
+ * marked "Pending Confirmation" rather than invented. See CONTENT-AUDIT.md
+ * for the full history — firm must confirm current team membership and
+ * supply/approve a real biography and photograph before launch.
  */
 export const team: Attorney[] = [
   {
@@ -79,6 +83,33 @@ export const team: Attorney[] = [
       "immigration-law",
     ],
     photoAlt: "Portrait of Sumant Khan, Principal Attorney at NextConnect Law",
+    photoSrc: "/home-page-hero/sumant-khan.avif",
+    isSamplePortrait: false,
+    isAttorney: true,
+  },
+  {
+    slug: "karaman-mamand",
+    name: "Karaman Mamand",
+    title: "Immigration Case Manager",
+    shortBio:
+      "Supports the firm's immigration practice. Full biography pending confirmation from the firm.",
+    // PLACEHOLDER — only the title/role is confirmed by the client for this
+    // build. No biography, education, or experience detail exists in any
+    // source document reviewed; nothing has been invented to fill the gap.
+    bio: [
+      "[PENDING CONFIRMATION] A detailed biography for Karaman Mamand has not been provided in the source materials reviewed for this site. Do not publish this profile until the firm supplies and approves biography content.",
+    ],
+    education: [],
+    barAdmissions: [],
+    verifiedBarAdmissions: false,
+    experienceHighlights: [],
+    publications: [],
+    languages: [],
+    practiceAreaSlugs: ["immigration-law"],
+    photoAlt: "Temporary sample portrait placeholder for Karaman Mamand, Immigration Case Manager",
+    photoSrc: "/team/02-mock-portrait.webp",
+    isSamplePortrait: true,
+    isAttorney: false,
   },
 ];
 
