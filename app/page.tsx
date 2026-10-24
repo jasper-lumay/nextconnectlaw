@@ -6,10 +6,18 @@ import { PracticeAreaCard } from "@/components/sections/practice-area-card";
 import { TeamCard } from "@/components/sections/team-card";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Button } from "@/components/ui/button";
+import { LightbulbIcon, DocumentIcon, MonitorIcon, UsersIcon } from "@/components/ui/icons";
 import { firm } from "@/content/firm";
 import { practiceAreas } from "@/content/practice-areas";
 import { team } from "@/content/team";
 import { locations } from "@/content/locations";
+
+const heroHighlights = [
+  { icon: <LightbulbIcon />, label: "Intellectual Property" },
+  { icon: <DocumentIcon />, label: "Transactions" },
+  { icon: <MonitorIcon />, label: "Software Licensing" },
+  { icon: <UsersIcon />, label: "Immigration" },
+];
 
 export const metadata: Metadata = {
   title: "Technology, Deals and Disputes Counsel in Atlanta",
@@ -41,24 +49,21 @@ export default function HomePage() {
   return (
     <>
       <Hero
-        eyebrow="Technology, Deals & Disputes Counsel"
-        title="One counsel for the deal, the technology and the dispute."
-        lede={firm.shortDescription}
+        eyebrow="Business | Technology | Legal Counsel"
+        titlePrefix="Strategic Legal Counsel for Technology,"
+        titleHighlight="Transactions & Disputes"
+        lede="NextConnect Law advises technology and services companies on intellectual property, commercial transactions, M&A, software licensing, immigration, and arbitration."
         actions={
           <>
             <Button href="/contact" variant="primary">
-              {firm.consultationCta}
+              {firm.consultationCta} →
             </Button>
             <Button href="/practice-areas" variant="on-dark">
               Explore Practice Areas
             </Button>
           </>
         }
-        stats={[
-          { value: "20+", label: "Years of combined law firm & in-house experience" },
-          { value: "6", label: "Connected practice areas" },
-          { value: "Atlanta", label: "Based in Georgia, working nationally" },
-        ]}
+        highlights={heroHighlights}
       />
 
       <section className="section section--surface">

@@ -1,46 +1,49 @@
 import type { ReactNode } from "react";
 import { Container } from "@/components/ui/container";
 
-type HeroStat = {
-  value: string;
+type HeroHighlight = {
+  icon: ReactNode;
   label: string;
 };
 
 export function Hero({
   eyebrow,
-  title,
+  titlePrefix,
+  titleHighlight,
   lede,
   actions,
-  stats,
+  highlights,
 }: {
   eyebrow?: string;
-  title: string;
+  titlePrefix: string;
+  titleHighlight?: string;
   lede: string;
   actions?: ReactNode;
-  stats?: HeroStat[];
+  highlights?: HeroHighlight[];
 }) {
   return (
     <section className="hero">
       <Container>
-        <div className="hero__grid">
-          <div>
-            {eyebrow ? <span className="hero__eyebrow">{eyebrow}</span> : null}
-            <h1 className="hero__title">{title}</h1>
-            <p className="hero__lede">{lede}</p>
-            {actions ? <div className="hero__actions">{actions}</div> : null}
-          </div>
+        <div className="hero__content">
+          {eyebrow ? <span className="hero__eyebrow">{eyebrow}</span> : null}
+          <h1 className="hero__title">
+            {titlePrefix}
+            {titleHighlight ? (
+              <span className="hero__title-highlight"> {titleHighlight}</span>
+            ) : null}
+          </h1>
+          <p className="hero__lede">{lede}</p>
+          {actions ? <div className="hero__actions">{actions}</div> : null}
 
-          {stats && stats.length > 0 ? (
-            <div className="hero__panel">
-              <div className="hero__stats">
-                {stats.map((stat) => (
-                  <div key={stat.label}>
-                    <span className="hero__stat-value">{stat.value}</span>
-                    <span className="hero__stat-label">{stat.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {highlights && highlights.length > 0 ? (
+            <ul className="hero__highlights">
+              {highlights.map((item) => (
+                <li key={item.label} className="hero__highlight">
+                  <span className="hero__highlight-icon">{item.icon}</span>
+                  <span className="hero__highlight-label">{item.label}</span>
+                </li>
+              ))}
+            </ul>
           ) : null}
         </div>
       </Container>

@@ -161,40 +161,59 @@
   text-align: center;
 }
 
-/* ---- Hero ---- */
+/* ---- Hero ----
+ * Full-bleed photographic hero: the attorney/office/justice-statue
+ * photograph as the actual CSS background (not an <img>/next/image), with
+ * a navy scrim layered over it so the left-side text column stays
+ * readable regardless of exactly how much of the photo is cropped at a
+ * given viewport. The scrim shape (and the background-position/size) are
+ * re-tuned per breakpoint below, rather than relying on one crop to work
+ * everywhere. */
 .hero {
-  padding-block: var(--space-3xl);
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-  color: var(--color-text-inverse);
-}
-
-.hero__grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: var(--space-2xl);
+  position: relative;
+  display: flex;
   align-items: center;
+  min-height: clamp(560px, 82vh, 760px);
+  padding-block: var(--space-3xl);
+  color: var(--color-text-inverse);
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(var(--color-primary-rgb), 0.96) 0%,
+      rgba(var(--color-primary-rgb), 0.88) 26%,
+      rgba(var(--color-primary-rgb), 0.45) 50%,
+      rgba(var(--color-primary-rgb), 0) 70%
+    ),
+    url("/home-page-hero/hero-image.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-@media (max-width: 900px) {
-  .hero__grid {
-    grid-template-columns: 1fr;
-  }
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 640px;
 }
 
 .hero__eyebrow {
   display: inline-block;
   font-size: var(--fs-sm);
   font-weight: var(--fw-semibold);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--color-accent-light);
-  margin-bottom: var(--space-md);
 }
 
 .hero__title {
   color: var(--color-text-inverse);
   font-size: var(--fs-5xl);
-  margin-bottom: var(--space-md);
+  line-height: var(--lh-tight);
+}
+
+.hero__title-highlight {
+  color: var(--color-accent-light);
 }
 
 @media (max-width: 768px) {
@@ -205,40 +224,90 @@
 
 .hero__lede {
   font-size: var(--fs-lg);
-  color: rgba(248, 247, 244, 0.85);
-  margin-bottom: var(--space-lg);
-  max-width: 60ch;
+  color: rgba(248, 247, 244, 0.88);
+  max-width: 58ch;
 }
 
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
+  margin-top: var(--space-2xs);
 }
 
-.hero__panel {
-  background-color: rgba(248, 247, 244, 0.06);
-  border: 1px solid rgba(248, 247, 244, 0.18);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
-}
-
-.hero__stats {
+.hero__highlights {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-lg);
+  grid-template-columns: repeat(4, auto);
+  justify-content: start;
+  gap: var(--space-xl);
+  margin-top: var(--space-lg);
 }
 
-.hero__stat-value {
-  font-family: var(--font-heading);
-  font-size: var(--fs-3xl);
+.hero__highlight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2xs);
+}
+
+.hero__highlight-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(var(--color-accent-rgb), 0.5);
+  border-radius: var(--radius-md);
   color: var(--color-accent-light);
-  display: block;
 }
 
-.hero__stat-label {
+.hero__highlight-label {
   font-size: var(--fs-sm);
-  color: rgba(248, 247, 244, 0.75);
+  font-weight: var(--fw-medium);
+  color: rgba(248, 247, 244, 0.92);
+  max-width: 10ch;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: clamp(620px, 94vh, 820px);
+    align-items: flex-end;
+    padding-block-end: var(--space-2xl);
+    background-position: 62% center;
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(var(--color-primary-rgb), 0.55) 0%,
+        rgba(var(--color-primary-rgb), 0.82) 45%,
+        rgba(var(--color-primary-rgb), 0.95) 78%,
+        rgba(var(--color-primary-rgb), 0.97) 100%
+      ),
+      url("/home-page-hero/hero-image.png");
+  }
+
+  .hero__content {
+    max-width: none;
+  }
+
+  .hero__highlights {
+    grid-template-columns: repeat(2, auto);
+    gap: var(--space-lg) var(--space-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: auto;
+    padding-block: var(--space-2xl);
+  }
+
+  .hero__highlights {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero__highlight-label {
+    max-width: none;
+  }
 }
 
 /* ---- CTA band ---- */
