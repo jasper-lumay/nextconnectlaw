@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NextConnect Law — Website
 
-## Getting Started
+Production-ready rebuild of nextconnectlaw.com on Next.js App Router, TypeScript and plain global CSS (no CSS modules, no Tailwind).
 
-First, run the development server:
+See [`docs/CONTENT-AUDIT.md`](docs/CONTENT-AUDIT.md) for a full log of which firm facts are confirmed, which are placeholders, and which source-document conflicts still need the firm's sign-off before launch.
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/              Routes (App Router) — one folder per page, plus [slug] dynamic routes
+components/       Reusable UI (ui/, layout/, sections/, forms/)
+config/           Site-wide config (nav, site metadata)
+content/          Firm content as typed data (firm, practice areas, team, locations, FAQs)
+lib/              Shared types and logic (contact form validation, etc.)
+styles/           Global CSS design system (variables, reset, base, layout, components)
+docs/             Content audit / source-of-truth log
+```
 
-## Learn More
+## Design system
 
-To learn more about Next.js, take a look at the following resources:
+All colors, typography, spacing and breakpoints are defined once as CSS custom properties in `styles/variables.css` and consumed everywhere via `var(--token)`. Do not introduce inline styles, CSS modules, or Tailwind — extend `styles/components.css` or `styles/layout.css` instead.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contact form
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The contact form (`/contact`) validates client- and server-side, includes honeypot + timing-based spam protection, and runs as a Next.js Server Action (`app/contact/actions.ts`). **Email/CRM delivery is not yet wired up** — submissions are currently logged server-side only. See `.env.example` and the TODO in `app/contact/actions.ts` before launch.
 
-## Deploy on Vercel
+## Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev          # start dev server
+npm run build         # production build
+npm run start         # run production build
+npm run lint           # ESLint
+npm run format          # Prettier write
+npm run format:check     # Prettier check
+```
