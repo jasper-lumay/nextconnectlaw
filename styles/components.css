@@ -173,7 +173,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: clamp(560px, 82vh, 760px);
+  min-height: clamp(520px, 78vh, 700px);
   padding-block: var(--space-3xl);
   color: var(--color-text-inverse);
   background-image:
@@ -208,18 +208,16 @@
 
 .hero__title {
   color: var(--color-text-inverse);
-  font-size: var(--fs-5xl);
+  /* Scales with viewport instead of a fixed rem size, so the headline
+     can't balloon to several wrapped lines and push the rest of the
+     hero content (buttons, highlights) down past the visible hero area
+     on wide-but-not-tall browser windows. */
+  font-size: clamp(1.75rem, 1.1rem + 2.2vw, 2.75rem);
   line-height: var(--lh-tight);
 }
 
 .hero__title-highlight {
   color: var(--color-accent-light);
-}
-
-@media (max-width: 768px) {
-  .hero__title {
-    font-size: var(--fs-3xl);
-  }
 }
 
 .hero__lede {
