@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CtaBand } from "@/components/sections/cta-band";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import { practiceAreas, getPracticeAreaBySlug } from "@/content/practice-areas";
 import { team } from "@/content/team";
 
@@ -75,7 +76,7 @@ export default async function PracticeAreaDetailPage({
                       <h3 className="card__title">{attorney.name}</h3>
                       <p className="card__body">{attorney.shortBio}</p>
                       <Link className="card__link" href={`/team/${attorney.slug}`}>
-                        View profile →
+                        View profile <ArrowRightIcon />
                       </Link>
                     </div>
                   ))}

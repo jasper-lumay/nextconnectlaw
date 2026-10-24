@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import type { Attorney } from "@/lib/types";
 
 export function TeamCard({ attorney }: { attorney: Attorney }) {
@@ -9,7 +10,9 @@ export function TeamCard({ attorney }: { attorney: Attorney }) {
         <span className="card__eyebrow">{attorney.title}</span>
         <h3 className="card__title">{attorney.name}</h3>
         <p className="card__body">{attorney.shortBio}</p>
-        <span className="card__link">View full profile →</span>
+        <span className="card__link">
+          View full profile <ArrowRightIcon />
+        </span>
       </Card>
     </Link>
   );

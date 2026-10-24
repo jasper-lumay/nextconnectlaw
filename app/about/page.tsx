@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CtaBand } from "@/components/sections/cta-band";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import { firm } from "@/content/firm";
 import { team } from "@/content/team";
 
@@ -48,7 +49,7 @@ export default function AboutPage() {
               </p>
               {principal ? (
                 <Link className="card__link" href={`/team/${principal.slug}`}>
-                  Meet {principal.name} →
+                  Meet {principal.name} <ArrowRightIcon />
                 </Link>
               ) : null}
             </div>

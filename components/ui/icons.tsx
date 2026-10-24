@@ -1,3 +1,5 @@
+import { ArrowRight } from "lucide-react";
+
 type IconProps = {
   className?: string;
 };
@@ -101,6 +103,30 @@ export function MonitorIcon({ className }: IconProps) {
       <path d="M9 21h6M12 17v4" />
     </svg>
   );
+}
+
+export function SearchIcon({ className }: IconProps) {
+  return (
+    <svg
+      className={className}
+      width="18"
+      height="18"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="9" cy="9" r="6" />
+      <line x1="17" y1="17" x2="13.4" y2="13.4" />
+    </svg>
+  );
+}
+
+export function ArrowRightIcon({ className }: IconProps) {
+  return <ArrowRight className={className} width={16} height={16} strokeWidth={2} aria-hidden="true" />;
 }
 
 export function UsersIcon({ className }: IconProps) {

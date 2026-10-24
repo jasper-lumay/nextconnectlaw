@@ -5,9 +5,13 @@ import { firm } from "@/content/firm";
 export function CtaBand({
   title = "Ready to talk about your matter?",
   lede = "Tell us what you're working on and we'll respond with next steps and a clear scope.",
+  secondaryLabel = "Explore Practice Areas",
+  secondaryHref = "/practice-areas",
 }: {
   title?: string;
   lede?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
 }) {
   return (
     <section className="section section--tight">
@@ -21,8 +25,8 @@ export function CtaBand({
             <Button href="/contact" variant="primary">
               {firm.consultationCta}
             </Button>
-            <Button href="/practice-areas" variant="on-dark">
-              Explore Practice Areas
+            <Button href={secondaryHref} variant="on-dark">
+              {secondaryLabel}
             </Button>
           </div>
         </div>

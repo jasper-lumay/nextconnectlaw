@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
+import { Target, Users as UsersOutline, Link2, MessageCircle } from "lucide-react";
 import { Hero } from "@/components/sections/hero";
+import { AboutPreview } from "@/components/sections/about-preview";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { PracticeAreaCard } from "@/components/sections/practice-area-card";
-import { TeamCard } from "@/components/sections/team-card";
+import { TeamLocationsSpotlight } from "@/components/sections/team-locations-spotlight";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Button } from "@/components/ui/button";
-import { LightbulbIcon, DocumentIcon, MonitorIcon, UsersIcon } from "@/components/ui/icons";
+import {
+  LightbulbIcon,
+  DocumentIcon,
+  MonitorIcon,
+  UsersIcon,
+  ArrowRightIcon,
+} from "@/components/ui/icons";
 import { firm } from "@/content/firm";
 import { practiceAreas } from "@/content/practice-areas";
 import { team } from "@/content/team";
@@ -26,25 +34,31 @@ export const metadata: Metadata = {
 
 const approach = [
   {
+    icon: <Target />,
     title: "Business first",
-    body: "We start with what you are trying to achieve, then give you a clear recommendation, not a list of every possible risk.",
+    body: "We start with your goals and give clear, practical options.",
   },
   {
+    icon: <UsersOutline />,
     title: "In-house perspective",
-    body: "Years of in-house experience mean we understand deadlines, approvals and the pressure of closing a quarter.",
+    body: "We understand deadlines, approvals and commercial realities.",
   },
   {
+    icon: <Link2 />,
     title: "Connected advice",
-    body: "A transaction can raise IP, licensing and visa questions at once. We see them together and plan for them before they surface.",
+    body: "We see contracts, IP, and related legal issues together.",
   },
   {
+    icon: <MessageCircle />,
     title: "Plain language",
-    body: "Agreements your team can read, your customers can sign and a tribunal can enforce.",
+    body: "Clear guidance your team can use and your customers can understand.",
   },
 ];
 
 export default function HomePage() {
   const primaryLocation = locations[0];
+  const principalAttorney =
+    team.find((attorney) => attorney.slug === firm.principalAttorneySlug) ?? team[0];
 
   return (
     <>
@@ -56,7 +70,7 @@ export default function HomePage() {
         actions={
           <>
             <Button href="/contact" variant="primary">
-              {firm.consultationCta} →
+              {firm.consultationCta} <ArrowRightIcon />
             </Button>
             <Button href="/practice-areas" variant="on-dark">
               Explore Practice Areas
@@ -66,12 +80,23 @@ export default function HomePage() {
         highlights={heroHighlights}
       />
 
+      <AboutPreview
+        eyebrow={`About ${firm.name}`}
+        title="Business-Focused Legal Counsel"
+        body={`${firm.name} is a boutique legal practice focused on helping technology and services companies navigate intellectual property, commercial transactions, M&A, software licensing, immigration, and complex business decisions.`}
+        ctaHref="/about"
+        ctaLabel="Learn More About Us"
+        badgeText="Trusted legal partner for innovative businesses."
+        imageSrc="/home-page-hero/golden-hour-boardroom-skyline.png"
+        imageAlt="Law office boardroom overlooking the Atlanta skyline at golden hour"
+      />
+
       <section className="section section--surface">
         <Container>
           <SectionHeading
-            eyebrow="What We Handle"
-            title="Six connected disciplines"
-            lede="So the contract, the IP and the people behind the business are handled together, not as separate matters."
+            eyebrow="Practice Areas"
+            title="Legal Services for Business, Technology & Growth"
+            lede="Focused legal counsel across the areas that matter most to technology and services companies."
           />
           <div className="grid grid--3">
             {practiceAreas.map((area) => (
@@ -85,72 +110,37 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Our Approach"
-            title="A transactional lawyer's approach to every matter"
+            title="A business-first approach to legal matters"
             lede="Most legal problems are cheaper to solve at the drafting stage. We work that way across every practice area."
           />
-          <div className="grid grid--4">
+          <div className="grid grid--4 approach-grid">
             {approach.map((item) => (
-              <div key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
+              <div key={item.title} className="approach-item">
+                <span className="approach-item__icon" aria-hidden="true">
+                  {item.icon}
+                </span>
+                <h3 className="approach-item__title">{item.title}</h3>
+                <p className="approach-item__body">{item.body}</p>
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="section section--surface">
-        <Container>
-          <SectionHeading
-            eyebrow="Our Team"
-            title="Work directly with the attorney on your matter"
-            lede="Clients work with the principal attorney from the first call through closing."
-          />
-          <div className="grid grid--3">
-            {team.map((attorney) => (
-              <TeamCard key={attorney.slug} attorney={attorney} />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="section section--tight">
-        <Container>
-          <SectionHeading
-            eyebrow="Locations"
-            title="Based in Atlanta"
-            lede="Serving technology and services companies in Georgia and beyond."
-          />
-          <div className="grid grid--3">
-            {locations.map((location) => (
-              <div className="card" key={location.slug}>
-                <h3 className="card__title">{location.name}</h3>
-                <p className="card__body">
-                  {location.city}, {location.state}
-                  {location.servesRemote ? " · Remote engagements available" : ""}
-                </p>
-                <a className="card__link" href="/locations">
-                  View location details →
-                </a>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="section section--surface">
-        <Container>
-          <SectionHeading eyebrow="Client Reviews" title="Client reviews" center />
-          <p className="u-text-center u-text-muted u-max-w-prose">
-            Client reviews are not yet published for this site. Check back soon, or ask us directly
-            about references for similar matters.
-          </p>
-        </Container>
-      </section>
+      {principalAttorney && primaryLocation ? (
+        <TeamLocationsSpotlight
+          attorney={principalAttorney}
+          attorneyPhotoSrc="/home-page-hero/sumant-khan.avif"
+          location={primaryLocation}
+          locationPhotoSrc="/home-page-hero/golden-hour-boardroom-skyline.png"
+        />
+      ) : null}
 
       <CtaBand
-        title={`Talk to ${primaryLocation ? primaryLocation.name : firm.name} about your matter`}
-        lede="Initial inquiries are confidential, but sending a message does not create an attorney-client relationship."
+        title={`Discuss Your Legal Matter with ${firm.name}`}
+        lede="Tell us briefly what you need assistance with, and we will be in touch about next steps."
+        secondaryLabel="Contact Us"
+        secondaryHref="/contact"
       />
     </>
   );
