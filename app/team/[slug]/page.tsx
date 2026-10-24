@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
@@ -42,7 +43,7 @@ export default async function AttorneyProfilePage({ params }: PageProps<"/team/[
     <>
       <section className="section section--primary">
         <Container>
-          <nav className="breadcrumb" aria-label="Breadcrumb">
+          <nav className="breadcrumb breadcrumb--on-dark" aria-label="Breadcrumb">
             <Link href="/team">Our Team</Link>
             <span aria-hidden="true">/</span>
             <span>{attorney.name}</span>
@@ -55,19 +56,36 @@ export default async function AttorneyProfilePage({ params }: PageProps<"/team/[
         <Container>
           <div className="grid grid--2">
             <div className="stack stack--gap-md">
-              <h2>Experience</h2>
+              <div className="bio-photo">
+                <Image
+                  src={attorney.photoSrc}
+                  alt={attorney.photoAlt}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 560px"
+                  className="spotlight__image"
+                />
+                {attorney.isSamplePortrait ? (
+                  <span className="badge profile-card__photo-badge">Sample portrait</span>
+                ) : null}
+              </div>
+
+              <h2 className="u-mt-md">Experience</h2>
               {attorney.bio.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
 
-              <h2 className="u-mt-md">Notable experience</h2>
-              <ul className="stack stack--gap-md">
-                {attorney.experienceHighlights.map((item) => (
-                  <li key={item} className="card">
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              {attorney.experienceHighlights.length > 0 ? (
+                <>
+                  <h2 className="u-mt-md">Notable experience</h2>
+                  <ul className="stack stack--gap-md">
+                    {attorney.experienceHighlights.map((item) => (
+                      <li key={item} className="card">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : null}
 
               {attorney.publications.length > 0 ? (
                 <>
@@ -85,33 +103,39 @@ export default async function AttorneyProfilePage({ params }: PageProps<"/team/[
             </div>
 
             <div className="stack stack--gap-md">
-              <div className="card">
-                <span className="card__eyebrow">Education</span>
-                <ul className="stack stack--gap-md u-mt-md">
-                  {attorney.education.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
+              {attorney.isAttorney && attorney.education.length > 0 ? (
+                <div className="card">
+                  <span className="card__eyebrow">Education</span>
+                  <ul className="stack stack--gap-md u-mt-md">
+                    {attorney.education.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
 
-              <div className="card">
-                <span className="card__eyebrow">Bar Admissions</span>
-                {!attorney.verifiedBarAdmissions ? (
-                  <p className="u-mt-md">
-                    <Badge notice>Pending firm confirmation</Badge>
-                  </p>
-                ) : null}
-                <ul className="stack stack--gap-md u-mt-md">
-                  {attorney.barAdmissions.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
+              {attorney.isAttorney ? (
+                <div className="card">
+                  <span className="card__eyebrow">Bar Admissions</span>
+                  {!attorney.verifiedBarAdmissions ? (
+                    <p className="u-mt-md">
+                      <Badge notice>Pending firm confirmation</Badge>
+                    </p>
+                  ) : null}
+                  <ul className="stack stack--gap-md u-mt-md">
+                    {attorney.barAdmissions.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
 
-              <div className="card">
-                <span className="card__eyebrow">Languages</span>
-                <p className="card__body u-mt-md">{attorney.languages.join(" · ")}</p>
-              </div>
+              {attorney.languages.length > 0 ? (
+                <div className="card">
+                  <span className="card__eyebrow">Languages</span>
+                  <p className="card__body u-mt-md">{attorney.languages.join(" · ")}</p>
+                </div>
+              ) : null}
 
               <div className="card">
                 <span className="card__eyebrow">Practice Areas</span>

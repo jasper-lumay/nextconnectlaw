@@ -10,6 +10,10 @@ export type PracticeArea = {
   summary: string;
   services: string[];
   iconLabel: string;
+  heroImageAlt: string;
+  clientSituations: string[];
+  serviceDetails: { title: string; description: string }[];
+  approachSteps: { title: string; description: string }[];
 };
 
 export type Attorney = {
@@ -26,6 +30,9 @@ export type Attorney = {
   languages: string[];
   practiceAreaSlugs: string[];
   photoAlt: string;
+  photoSrc: string;
+  isSamplePortrait: boolean;
+  isAttorney: boolean;
 };
 
 export type Location = {
