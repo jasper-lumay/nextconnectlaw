@@ -1,7 +1,7 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 import Link from "next/link";
 
-type Variant = "primary" | "secondary" | "on-dark";
+type Variant = "primary" | "secondary" | "on-dark" | "outline";
 
 type CommonProps = {
   variant?: Variant;
@@ -26,6 +26,7 @@ function classesFor(variant: Variant, block?: boolean, extra?: string) {
     variant === "primary" && "btn--primary",
     variant === "secondary" && "btn--secondary",
     variant === "on-dark" && "btn--on-dark",
+    variant === "outline" && "btn--outline",
     block && "btn--block",
     extra,
   ]

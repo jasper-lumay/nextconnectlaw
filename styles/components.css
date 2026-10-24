@@ -53,6 +53,17 @@
   color: var(--color-primary);
 }
 
+.btn--outline {
+  background-color: var(--color-surface);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn--outline:hover {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
 .btn--block {
   width: 100%;
 }
@@ -384,6 +395,10 @@
 
 .u-mt-md {
   margin-top: var(--space-md);
+}
+
+.u-no-scroll {
+  overflow: hidden;
 }
 
 /* ---- Visually hidden ---- */

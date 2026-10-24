@@ -131,34 +131,10 @@
   text-transform: uppercase;
 }
 
-.site-header__nav {
-  display: flex;
-  align-items: center;
-  gap: var(--space-lg);
-}
-
-.site-header__nav-list {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-}
-
-.site-header__nav-link {
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-medium);
-  color: var(--color-text);
-  padding-block: var(--space-2xs);
-}
-
-.site-header__nav-link:hover,
-.site-header__nav-link[aria-current="page"] {
-  color: var(--color-accent-dark);
-}
-
 .site-header__actions {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
 .site-header__phone {
@@ -171,29 +147,28 @@
   white-space: nowrap;
 }
 
-.site-header__menu-toggle {
-  display: none;
-}
-
+/* The header stays spacious at every width: logo, phone (desktop only),
+   Contact Us, Schedule a Consultation, and the Menu trigger. All other
+   primary navigation lives in the nav drawer — see below — so there is
+   no separate inline nav list to keep in sync with it. */
 @media (max-width: 1024px) {
-  .site-header__nav-list {
-    display: none;
-  }
-
   .site-header__phone span {
     display: none;
   }
+}
 
-  .site-header__menu-toggle {
-    display: inline-flex;
+@media (max-width: 860px) {
+  .site-header__phone {
+    display: none;
   }
 }
 
 @media (max-width: 640px) {
-  .site-header__phone {
-    display: none;
-  }
-
+  /* Higher specificity than the unconditional .btn{display:inline-flex}
+     rule in components.css (which loads after this file, so an equal-
+     specificity selector here would lose the cascade regardless of the
+     media query being active). */
+  .site-header__actions .site-header__contact,
   .site-header__actions .site-header__cta {
     display: none;
   }
@@ -203,49 +178,122 @@
   }
 
   .site-header__actions {
-    gap: var(--space-sm);
+    gap: var(--space-xs);
   }
 }
 
-/* ---- Mobile nav drawer ----
- * Positioned absolutely against .site-header (sticky = positioned ancestor)
- * so the drawer spans the full header width edge-to-edge, independent of
- * where the toggle button sits inside the header's flex row. */
-.mobile-nav {
-  display: none;
+.nav-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  white-space: nowrap;
+}
+
+.nav-trigger__icon {
+  flex-shrink: 0;
+}
+
+/* ---- Nav drawer (slide-out panel) ----
+ * .nav-drawer-root is pinned to exactly the viewport box (inset:0) with
+ * overflow:hidden. The backdrop and drawer inside it are positioned
+ * absolute (not fixed) so they're clipped by that root — this keeps the
+ * off-canvas, translateX(100%) drawer from ever contributing to the
+ * document's scrollable width while closed, even mid-transition. */
+.nav-drawer-root {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 90;
+}
+
+.nav-drawer-root[data-open="true"] {
+  pointer-events: auto;
+}
+
+.nav-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(var(--color-primary-rgb), 0.5);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.nav-drawer-backdrop[data-open="true"] {
+  opacity: 1;
+}
+
+.nav-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(360px, 90vw);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  transform: translateX(100%);
+  transition: transform var(--transition-base);
+}
+
+.nav-drawer[data-open="true"] {
+  transform: translateX(0);
+}
+
+.nav-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-drawer__title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);
+  color: var(--color-primary);
+}
+
+.nav-drawer__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--color-primary);
+}
+
+.nav-drawer__close:hover {
+  background-color: var(--color-background);
+  border-color: var(--color-primary);
+}
+
+.nav-drawer__links {
+  display: flex;
   flex-direction: column;
   gap: var(--space-2xs);
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  width: 100%;
-  background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  padding: var(--space-md);
-  box-shadow: var(--shadow-md);
 }
 
-.mobile-nav[data-open="true"] {
-  display: flex;
-}
-
-.mobile-nav__link {
-  padding: var(--space-xs) var(--space-sm);
+.nav-drawer__link {
+  padding: var(--space-sm);
   border-radius: var(--radius-sm);
+  font-size: var(--fs-lg);
   font-weight: var(--fw-medium);
+  color: var(--color-primary);
 }
 
-.mobile-nav__link:hover,
-.mobile-nav__link[aria-current="page"] {
+.nav-drawer__link:hover,
+.nav-drawer__link[aria-current="page"] {
   background-color: var(--color-background);
   color: var(--color-accent-dark);
 }
 
-@media (min-width: 1025px) {
-  .mobile-nav {
-    display: none !important;
-  }
+.nav-drawer__cta {
+  margin-top: auto;
+  justify-content: center;
 }
 
 /* ---- Site footer ---- */
