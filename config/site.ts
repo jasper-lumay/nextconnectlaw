@@ -23,3 +23,49 @@ export const footerLegalNav: NavItem[] = [
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Legal Disclaimer", href: "/legal-disclaimer" },
 ];
+
+export type ResourcesMenuItem = {
+  label: string;
+  href: string;
+  description: string;
+  iconKey: "blogs" | "legal-articles" | "news" | "guides" | "faqs" | "videos";
+};
+
+export const resourcesMenu: ResourcesMenuItem[] = [
+  {
+    label: "Blogs",
+    href: "/resources/blogs",
+    description: "Editorial articles on business and technology law.",
+    iconKey: "blogs",
+  },
+  {
+    label: "Legal Articles",
+    href: "/resources/legal-articles",
+    description: "Structured, reference-style legal explainers.",
+    iconKey: "legal-articles",
+  },
+  {
+    label: "News",
+    href: "/resources/news",
+    description: "Legal developments affecting technology companies.",
+    iconKey: "news",
+  },
+  {
+    label: "Guides",
+    href: "/resources/guides",
+    description: "Practical checklists for common legal decisions.",
+    iconKey: "guides",
+  },
+  {
+    label: "FAQs",
+    href: "/resources#faqs",
+    description: "Answers to common questions before you call.",
+    iconKey: "faqs",
+  },
+  {
+    label: "Videos",
+    href: "/resources#videos",
+    description: "Video explainers — coming soon.",
+    iconKey: "videos",
+  },
+];

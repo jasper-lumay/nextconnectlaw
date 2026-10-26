@@ -1,26 +1,18 @@
+import Link from "next/link";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import { practiceAreas } from "@/content/practice-areas";
 import type { Attorney } from "@/lib/types";
 
-export function TeamCard({
-  attorney,
-  selected,
-  onSelect,
-}: {
-  attorney: Attorney;
-  selected?: boolean;
-  onSelect?: () => void;
-}) {
+export function TeamCard({ attorney }: { attorney: Attorney }) {
   const areas = practiceAreas.filter((area) => attorney.practiceAreaSlugs.includes(area.slug));
 
   return (
-    <button
-      type="button"
+    <Link
+      href={`/team/${attorney.slug}`}
       className="profile-card-btn"
-      onClick={onSelect}
-      aria-pressed={selected}
-      aria-label={`View ${attorney.name}'s profile`}
+      aria-label={`View ${attorney.name}'s full profile`}
     >
       <Card interactive>
         <div className="profile-card__photo">
@@ -43,8 +35,10 @@ export function TeamCard({
             <strong>Practice areas:</strong> {areas.map((area) => area.title).join(", ")}
           </p>
         ) : null}
-        <span className="card__link">{selected ? "Viewing Profile" : "View Profile"}</span>
+        <span className="card__link">
+          View Full Profile <ArrowRightIcon />
+        </span>
       </Card>
-    </button>
+    </Link>
   );
 }

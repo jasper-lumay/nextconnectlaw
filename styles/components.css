@@ -306,6 +306,10 @@
   --hero-bg-image: url("/team/Sunset Skyline Law Office Conference Room.png");
 }
 
+.hero[data-area="locations"] {
+  --hero-bg-image: url("/practice area/Corporate Skyline with Golden Light.png");
+}
+
 /* ---- Team profile cards & detailed bio photo ---- */
 .profile-card__photo {
   position: relative;
@@ -613,6 +617,16 @@
   margin-bottom: var(--space-2xs);
 }
 
+.cta-band__eyebrow {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+  margin-bottom: var(--space-xs);
+}
+
 .cta-band__actions {
   display: flex;
   gap: var(--space-sm);
@@ -915,6 +929,34 @@
 .spotlight__team-bio {
   font-size: var(--fs-sm);
   color: var(--color-text-muted);
+}
+
+.spotlight__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.spotlight__team-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  margin-bottom: var(--space-md);
+  font-weight: var(--fw-semibold);
+  color: var(--color-primary);
+}
+
+.spotlight__team-link:hover {
+  color: var(--color-accent-dark);
+}
+
+.spotlight__team-link--on-dark {
+  color: var(--color-accent-light);
+}
+
+.spotlight__team-link--on-dark:hover {
+  color: var(--color-text-inverse);
 }
 
 .spotlight__location-card {

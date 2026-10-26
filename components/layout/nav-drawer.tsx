@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { primaryNav } from "@/config/site";
+import { ChevronDown } from "lucide-react";
+import { primaryNav, resourcesMenu } from "@/config/site";
 import { firm } from "@/content/firm";
 import { HamburgerIcon, CloseIcon } from "@/components/ui/icons";
 
@@ -12,6 +13,7 @@ const FOCUSABLE_SELECTOR =
 
 export function NavDrawer() {
   const [open, setOpen] = useState(false);
+  const [resourcesExpanded, setResourcesExpanded] = useState(false);
   const pathname = usePathname();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -25,6 +27,7 @@ export function NavDrawer() {
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
     setOpen(false);
+    setResourcesExpanded(false);
   }
 
   function close() {
@@ -122,21 +125,60 @@ export function NavDrawer() {
           </div>
 
           <nav className="nav-drawer__links" aria-label="Primary">
-            {primaryNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="nav-drawer__link"
-                aria-current={pathname === item.href ? "page" : undefined}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {primaryNav.map((item) =>
+              item.label === "Resources" ? (
+                <div className="nav-drawer__resources" key={item.href}>
+                  <div className="nav-drawer__resources-row">
+                    <Link
+                      href={item.href}
+                      className="nav-drawer__link"
+                      aria-current={pathname === item.href ? "page" : undefined}
+                    >
+                      {item.label}
+                    </Link>
+                    <button
+                      type="button"
+                      className="nav-drawer__resources-toggle"
+                      aria-expanded={resourcesExpanded}
+                      aria-controls="nav-drawer-resources-panel"
+                      aria-label="Show Resources submenu"
+                      onClick={() => setResourcesExpanded((value) => !value)}
+                    >
+                      <ChevronDown data-open={resourcesExpanded} aria-hidden="true" />
+                    </button>
+                  </div>
+
+                  <div
+                    id="nav-drawer-resources-panel"
+                    className="nav-drawer__resources-panel"
+                    data-open={resourcesExpanded}
+                  >
+                    {resourcesMenu.map((sub) => (
+                      <Link key={sub.href} href={sub.href} className="nav-drawer__resources-link">
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="nav-drawer__link"
+                  aria-current={pathname === item.href ? "page" : undefined}
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
           </nav>
 
           <Link href="/contact" className="btn btn--primary nav-drawer__cta">
             {firm.consultationCta}
           </Link>
+          <a href={firm.phoneHref} className="nav-drawer__phone">
+            Call {firm.phone}
+          </a>
         </div>
       </div>
     </>

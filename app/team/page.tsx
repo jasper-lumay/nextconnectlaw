@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
@@ -21,16 +20,8 @@ export default function TeamPage() {
       <Hero
         className="hero--inner"
         area="team"
-        eyebrow="Our Team"
         titlePrefix="Our Team"
         lede="Meet the people behind NextConnect Law, a boutique practice focused on technology and business law for technology and services companies."
-        breadcrumb={
-          <nav className="breadcrumb breadcrumb--on-dark" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
-            <span aria-hidden="true">/</span>
-            <span>Our Team</span>
-          </nav>
-        }
         actions={
           <Button href="/contact" variant="primary">
             {firm.consultationCta}

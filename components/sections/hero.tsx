@@ -15,7 +15,6 @@ export function Hero({
   highlights,
   className,
   area,
-  breadcrumb,
 }: {
   eyebrow?: string;
   titlePrefix: string;
@@ -25,13 +24,11 @@ export function Hero({
   highlights?: HeroHighlight[];
   className?: string;
   area?: string;
-  breadcrumb?: ReactNode;
 }) {
   return (
     <section className={className ? `hero ${className}` : "hero"} data-area={area}>
       <Container>
         <div className="hero__content">
-          {breadcrumb}
           {eyebrow ? <span className="hero__eyebrow">{eyebrow}</span> : null}
           <h1 className="hero__title">
             {titlePrefix}

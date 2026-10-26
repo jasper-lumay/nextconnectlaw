@@ -49,7 +49,7 @@ export async function submitContactForm(
     lastName: String(formData.get("lastName") ?? ""),
     email: String(formData.get("email") ?? ""),
     phone: String(formData.get("phone") ?? ""),
-    matterType: String(formData.get("matterType") ?? ""),
+    subject: String(formData.get("subject") ?? ""),
     message: String(formData.get("message") ?? ""),
   };
 
@@ -63,7 +63,7 @@ export async function submitContactForm(
   console.info("[contact-form] new inquiry received", {
     name: `${values.firstName} ${values.lastName}`,
     email: values.email,
-    matterType: values.matterType,
+    subject: values.subject,
   });
 
   return {

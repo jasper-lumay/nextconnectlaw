@@ -5,7 +5,7 @@ export type ContactFormValues = {
   lastName: string;
   email: string;
   phone: string;
-  matterType: string;
+  subject: string;
   message: string;
 };
 
@@ -30,8 +30,8 @@ export function validateContactForm(values: ContactFormValues): ContactFormError
     errors.email = "Enter a valid email address.";
   }
 
-  if (!values.matterType.trim()) {
-    errors.matterType = "Select the type of matter.";
+  if (!values.subject.trim()) {
+    errors.subject = "Select a subject.";
   }
 
   if (!values.message.trim()) {
@@ -45,4 +45,4 @@ export function validateContactForm(values: ContactFormValues): ContactFormError
   return errors;
 }
 
-export const matterTypeOptions = [...practiceAreas.map((area) => area.title), "Other"];
+export const subjectOptions = [...practiceAreas.map((area) => area.title), "Other"];

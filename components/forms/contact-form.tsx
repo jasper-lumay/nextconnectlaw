@@ -2,7 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { submitContactForm, type ContactFormState } from "@/app/contact/actions";
-import { matterTypeOptions } from "@/lib/contact-schema";
+import { subjectOptions } from "@/lib/contact-schema";
 import { Button } from "@/components/ui/button";
 
 const initialState: ContactFormState = { status: "idle" };
@@ -102,28 +102,28 @@ export function ContactForm() {
         </div>
       </div>
 
-      <div className={`form-field${errors.matterType ? " form-field--error" : ""}`}>
-        <label htmlFor="matterType">Type of matter</label>
+      <div className={`form-field${errors.subject ? " form-field--error" : ""}`}>
+        <label htmlFor="subject">Subject</label>
         <select
-          id="matterType"
-          name="matterType"
+          id="subject"
+          name="subject"
           required
           defaultValue=""
-          aria-invalid={Boolean(errors.matterType)}
-          aria-describedby={errors.matterType ? "matterType-error" : undefined}
+          aria-invalid={Boolean(errors.subject)}
+          aria-describedby={errors.subject ? "subject-error" : undefined}
         >
           <option value="" disabled>
             Select one
           </option>
-          {matterTypeOptions.map((option) => (
+          {subjectOptions.map((option) => (
             <option key={option} value={option}>
               {option}
             </option>
           ))}
         </select>
-        {errors.matterType ? (
-          <span className="form-field__error" id="matterType-error">
-            {errors.matterType}
+        {errors.subject ? (
+          <span className="form-field__error" id="subject-error">
+            {errors.subject}
           </span>
         ) : null}
       </div>

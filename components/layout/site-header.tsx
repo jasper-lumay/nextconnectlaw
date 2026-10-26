@@ -25,6 +25,9 @@ export function SiteHeader() {
           <PrimaryNav />
 
           <div className="site-header__actions">
+            <a href={firm.phoneHref} className="site-header__phone">
+              {firm.phone}
+            </a>
             <Link href="/contact" className="btn btn--primary site-header__cta">
               {firm.consultationCta}
               <ArrowRightIcon />

@@ -27,9 +27,14 @@ export function TeamLocationsSpotlight({
             <p className="spotlight__lede">
               Clients work with the principal attorney from the first call through closing.
             </p>
-            <Button href={`/team/${attorney.slug}`} variant="primary">
-              View Full Profile <ArrowRightIcon />
-            </Button>
+            <div className="spotlight__actions">
+              <Button href={`/team/${attorney.slug}`} variant="primary">
+                View Full Profile <ArrowRightIcon />
+              </Button>
+              <Link href="/team" className="spotlight__team-link">
+                Meet our full team <ArrowRightIcon />
+              </Link>
+            </div>
           </div>
 
           <div className="spotlight__team-profile">

@@ -41,19 +41,9 @@ export default async function AttorneyProfilePage({ params }: PageProps<"/team/[
 
   return (
     <>
-      <section className="section section--primary">
-        <Container>
-          <nav className="breadcrumb breadcrumb--on-dark" aria-label="Breadcrumb">
-            <Link href="/team">Our Team</Link>
-            <span aria-hidden="true">/</span>
-            <span>{attorney.name}</span>
-          </nav>
-          <SectionHeading eyebrow={attorney.title} title={attorney.name} lede={attorney.shortBio} />
-        </Container>
-      </section>
-
       <section className="section section--surface">
         <Container>
+          <SectionHeading eyebrow={attorney.title} title={attorney.name} lede={attorney.shortBio} />
           <div className="grid grid--2">
             <div className="stack stack--gap-md">
               <div className="bio-photo">

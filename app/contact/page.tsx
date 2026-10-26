@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { ContactForm } from "@/components/forms/contact-form";
 import { firm } from "@/content/firm";
-import { locations } from "@/content/locations";
+import { locations, getGoogleMapsUrl } from "@/content/locations";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -44,7 +44,11 @@ export default function ContactPage() {
               <div className="card">
                 <span className="card__eyebrow">Email</span>
                 <p className="card__title">
-                  {firm.email ?? <Badge notice>{firm.emailPlaceholder}</Badge>}
+                  {firm.email ? (
+                    <a href={`mailto:${firm.email}`}>{firm.email}</a>
+                  ) : (
+                    <Badge notice>{firm.emailPlaceholder}</Badge>
+                  )}
                 </p>
               </div>
 
@@ -58,6 +62,33 @@ export default function ContactPage() {
                     <Badge notice>Address pending confirmation — by appointment</Badge>
                   )}
                 </p>
+                <p className="card__body u-mt-md">
+                  <a
+                    href={getGoogleMapsUrl(primaryLocation, firm.name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="card__link"
+                  >
+                    View on Google Maps
+                  </a>
+                </p>
+              </div>
+
+              <div className="card">
+                <span className="card__eyebrow">Office Hours</span>
+                {primaryLocation.hours ? (
+                  <ul className="stack stack--gap-md u-mt-md">
+                    {primaryLocation.hours.map((entry) => (
+                      <li key={entry.day}>
+                        {entry.day}: {entry.hours}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="card__body u-mt-md">
+                    <Badge notice>Hours pending confirmation — by appointment</Badge>
+                  </p>
+                )}
               </div>
             </div>
           </div>

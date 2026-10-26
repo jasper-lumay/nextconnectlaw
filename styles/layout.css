@@ -189,6 +189,193 @@
   font-size: var(--fs-xs);
 }
 
+/* Clickable header phone number: the 1300px breakpoint above is already
+   the measured limit for logo + nav + CTA, so this only appears once
+   there's clearly extra room (1600px+) rather than squeezing into that
+   row and risking the overflow described above. */
+.site-header__phone {
+  display: none;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.site-header__phone:hover {
+  color: var(--color-accent-dark);
+}
+
+@media (min-width: 1600px) {
+  .site-header__phone {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* ---- Resources dropdown (desktop) ---- */
+.resources-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3xs);
+}
+
+.resources-dropdown__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-primary);
+}
+
+.resources-dropdown__toggle:hover,
+.resources-dropdown__toggle[data-active] {
+  color: var(--color-accent-dark);
+}
+
+.resources-dropdown__chevron {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-fast);
+}
+
+.resources-dropdown__chevron[data-open="true"] {
+  transform: rotate(180deg);
+}
+
+.resources-dropdown__panel {
+  position: absolute;
+  top: calc(100% + var(--space-sm));
+  left: 50%;
+  transform: translate(-50%, -6px);
+  width: 22rem;
+  max-width: 90vw;
+  padding: var(--space-xs);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: grid;
+  gap: var(--space-3xs);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    visibility 180ms;
+  z-index: 60;
+}
+
+.resources-dropdown__panel[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.resources-dropdown__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.resources-dropdown__item:hover,
+.resources-dropdown__item:focus-visible {
+  background-color: var(--color-background);
+}
+
+.resources-dropdown__item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-sm);
+  background-color: rgba(var(--color-accent-rgb), 0.15);
+  color: var(--color-accent-dark);
+  margin-top: 0.125rem;
+}
+
+.resources-dropdown__item-title {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-primary);
+}
+
+.resources-dropdown__item-desc {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  margin-top: 0.125rem;
+}
+
+/* ---- Resources submenu (mobile nav drawer) ---- */
+.nav-drawer__resources {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-drawer__resources-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-drawer__resources-row .nav-drawer__link {
+  flex: 1;
+}
+
+.nav-drawer__resources-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-primary);
+}
+
+.nav-drawer__resources-toggle svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--transition-fast);
+}
+
+.nav-drawer__resources-toggle svg[data-open="true"] {
+  transform: rotate(180deg);
+}
+
+.nav-drawer__resources-panel {
+  display: flex;
+  flex-direction: column;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-base);
+}
+
+.nav-drawer__resources-panel[data-open="true"] {
+  max-height: 20rem;
+}
+
+.nav-drawer__resources-link {
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+}
+
+.nav-drawer__resources-link:hover {
+  color: var(--color-primary);
+  background-color: var(--color-background);
+}
+
 /* The inline nav, search icon, and CTA are desktop-only; the hamburger
    drawer (with the same links) takes over below the breakpoint. The
    extra .site-header__actions ancestor on .nav-trigger raises
@@ -342,6 +529,17 @@
   justify-content: center;
 }
 
+.nav-drawer__phone {
+  margin-top: var(--space-sm);
+  text-align: center;
+  font-weight: var(--fw-semibold);
+  color: var(--color-primary);
+}
+
+.nav-drawer__phone:hover {
+  color: var(--color-accent-dark);
+}
+
 /* ---- Site footer ---- */
 .site-footer {
   background-color: var(--color-primary);
@@ -354,6 +552,11 @@
 }
 
 .site-footer a:hover {
+  color: var(--color-accent-light);
+}
+
+.site-footer .badge {
+  background-color: rgba(248, 247, 244, 0.12);
   color: var(--color-accent-light);
 }
 
@@ -424,8 +627,12 @@
   opacity: 0.7;
 }
 
-.site-footer__contact-location {
+.site-footer__hours {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
   opacity: 0.85;
+  font-size: var(--fs-sm);
 }
 
 .site-footer__legal-nav {

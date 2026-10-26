@@ -22,3 +22,15 @@ export const locations: Location[] = [
 export function getLocationBySlug(slug: string): Location | undefined {
   return locations.find((location) => location.slug === slug);
 }
+
+/**
+ * Google Maps search link. Uses the confirmed street address when one
+ * exists; otherwise falls back to a city/state search for the firm name
+ * rather than inventing an address.
+ */
+export function getGoogleMapsUrl(location: Location, firmName: string): string {
+  const query = location.streetAddress
+    ? `${location.streetAddress}, ${location.city}, ${location.state}`
+    : `${firmName}, ${location.city}, ${location.state}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}

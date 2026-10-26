@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { PracticeAreaCard } from "@/components/sections/practice-area-card";
+import { Badge } from "@/components/ui/badge";
+import { PracticeAreaCategoryCard } from "@/components/sections/practice-area-category-card";
+import { DemoPracticeAreaCard } from "@/components/sections/demo-practice-area-card";
 import { CtaBand } from "@/components/sections/cta-band";
-import { practiceAreas } from "@/content/practice-areas";
+import { practiceAreaCategories } from "@/content/practice-area-categories";
 import { firm } from "@/content/firm";
 
 export const metadata: Metadata = {
   title: "Practice Areas",
-  description: `Explore ${firm.name}'s practice areas, including intellectual property, technology licensing, commercial contracts, privacy, cross-border matters and immigration.`,
+  description: `Explore ${firm.name}'s practice areas, including business & corporate, intellectual property, privacy & data compliance, cross-border matters and immigration.`,
 };
 
 export default function PracticeAreasPage() {
@@ -18,8 +20,8 @@ export default function PracticeAreasPage() {
         <Container>
           <SectionHeading
             eyebrow="Practice Areas"
-            title="Six connected disciplines"
-            lede="So the contract, the IP and the people behind the business are handled together."
+            title="Find the right team for your legal issue"
+            lede="Five practice areas, organized around how clients actually come to us, so the contract, the IP and the people behind the business are handled together."
           />
         </Container>
       </section>
@@ -27,14 +29,28 @@ export default function PracticeAreasPage() {
       <section className="section section--surface">
         <Container>
           <div className="grid grid--3">
-            {practiceAreas.map((area) => (
-              <PracticeAreaCard key={area.slug} area={area} />
+            {practiceAreaCategories.map((category) => (
+              <PracticeAreaCategoryCard key={category.slug} category={category} />
             ))}
           </div>
         </Container>
       </section>
 
-      <CtaBand />
+      <section className="section">
+        <Container>
+          <SectionHeading
+            eyebrow="Proposed New Practice Area"
+            title="Nonprofit Organizations"
+            lede="Draft content prepared for client review. Not yet a confirmed NextConnect Law service."
+          />
+          <Badge notice>Pending client approval</Badge>
+          <div className="grid grid--3 u-mt-md">
+            <DemoPracticeAreaCard />
+          </div>
+        </Container>
+      </section>
+
+      <CtaBand title="Need Legal Guidance?" lede="Explore your legal needs with NextConnect Law." />
     </>
   );
 }
