@@ -6,7 +6,19 @@
 
 /* ---- Section A: Hero ---- */
 .resources-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: clamp(380px, 48vh, 480px);
   text-align: center;
+  background-image: linear-gradient(
+      rgba(var(--color-primary-rgb), 0.88),
+      rgba(var(--color-primary-rgb), 0.88)
+    ),
+    url("/practice area/Cinematic Blue Legal Office Banner.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .resources-hero .container {

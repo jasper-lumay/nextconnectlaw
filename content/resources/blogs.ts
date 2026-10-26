@@ -15,8 +15,8 @@ export const blogArticles: BlogArticle[] = [
     dek: "A practical walkthrough of the terms that matter most before a business signs on as a SaaS customer or vendor.",
     summary:
       "What to check in scope, data, security, availability, liability and termination terms before signing a SaaS agreement.",
-    coverImageSrc: "/practice area/Modern Developer Workspace Banner.png",
-    coverImageAlt: "Modern software developer workspace with multiple monitors",
+    coverImageSrc: "/practice area/under.png",
+    coverImageAlt: "Reviewing the terms of a SaaS agreement before signing",
     byline: "NextConnect Law | Sample Educational Content",
     sections: [
       {
@@ -110,8 +110,8 @@ export const blogArticles: BlogArticle[] = [
     dek: "How ownership, assignment and licensing terms in a development agreement determine who actually controls the code.",
     summary:
       "A guide to IP ownership, assignment versus licensing, open-source risk, and confidentiality in software development agreements.",
-    coverImageSrc: "/home-page-hero/Cinematic Law Office Workspace.png",
-    coverImageAlt: "Cinematic view of a modern law office workspace",
+    coverImageSrc: "/practice area/protecting.png",
+    coverImageAlt: "Protecting intellectual property in a software development agreement",
     byline: "NextConnect Law | Sample Educational Content",
     sections: [
       {

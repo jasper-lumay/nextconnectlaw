@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { Button } from "@/components/ui/button";
+import { Hero } from "@/components/sections/hero";
 import { CtaBand } from "@/components/sections/cta-band";
 import { ArrowRightIcon } from "@/components/ui/icons";
 import { firm } from "@/content/firm";
@@ -17,11 +18,18 @@ export default function AboutPage() {
 
   return (
     <>
-      <section className="section section--primary">
-        <Container>
-          <SectionHeading eyebrow="About Us" title={`About ${firm.name}`} lede={firm.tagline} />
-        </Container>
-      </section>
+      <Hero
+        className="hero--inner"
+        area="about"
+        eyebrow="About Us"
+        titlePrefix={`About ${firm.name}`}
+        lede={firm.tagline}
+        actions={
+          <Button href="/contact" variant="primary">
+            {firm.consultationCta}
+          </Button>
+        }
+      />
 
       <section className="section section--surface">
         <Container>

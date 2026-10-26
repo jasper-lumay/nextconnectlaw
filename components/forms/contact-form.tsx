@@ -4,6 +4,7 @@ import { useActionState, useState } from "react";
 import { submitContactForm, type ContactFormState } from "@/app/contact/actions";
 import { subjectOptions } from "@/lib/contact-schema";
 import { Button } from "@/components/ui/button";
+import { Select } from "@/components/ui/select";
 
 const initialState: ContactFormState = { status: "idle" };
 
@@ -104,23 +105,13 @@ export function ContactForm() {
 
       <div className={`form-field${errors.subject ? " form-field--error" : ""}`}>
         <label htmlFor="subject">Subject</label>
-        <select
+        <Select
           id="subject"
           name="subject"
-          required
-          defaultValue=""
-          aria-invalid={Boolean(errors.subject)}
-          aria-describedby={errors.subject ? "subject-error" : undefined}
-        >
-          <option value="" disabled>
-            Select one
-          </option>
-          {subjectOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+          options={subjectOptions}
+          invalid={Boolean(errors.subject)}
+          describedById={errors.subject ? "subject-error" : undefined}
+        />
         {errors.subject ? (
           <span className="form-field__error" id="subject-error">
             {errors.subject}

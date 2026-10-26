@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/container";
-import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
+import { Hero } from "@/components/sections/hero";
 import { ContactForm } from "@/components/forms/contact-form";
 import { firm } from "@/content/firm";
 import { locations, getGoogleMapsUrl } from "@/content/locations";
@@ -16,15 +16,13 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="section section--primary">
-        <Container>
-          <SectionHeading
-            eyebrow="Contact Us"
-            title="Talk to us about your matter"
-            lede="Tell us what you are working on and we will respond with next steps and a clear scope. Initial inquiries are confidential, but sending a message does not create an attorney-client relationship."
-          />
-        </Container>
-      </section>
+      <Hero
+        className="hero--inner"
+        area="contact"
+        eyebrow="Contact Us"
+        titlePrefix="Talk to us about your matter"
+        lede="Tell us what you are working on and we will respond with next steps and a clear scope. Initial inquiries are confidential, but sending a message does not create an attorney-client relationship."
+      />
 
       <section className="section section--surface">
         <Container>
